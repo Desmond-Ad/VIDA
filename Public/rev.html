@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="VIDA - Receive Order Page">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VIDA">
+    <title>Receive Order</title>
+    <link rel="icon" type="image/x-icon" href="/images/DIVA.png">
+    <link rel="apple-touch-icon" href="/images/DIVA.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/cs/rev.css">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+
+         <div class="logo">
+        <img src="/images/DIVA.png" alt="DIVA logo">
+    </div>
+
+    <form action="receive-ID" class="receive-form">
+        <h1>Receive Order</h1>
+        <label for="name" class="name">Name:</label>
+        <br>
+        <input type="text" id="name" name="name" placeholder="Customer Name" required>
+        <br>
+        <label for="phone" class="phone">Phone Number</label>
+        <br>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+        <br>
+        <label for="quantity">Quantity:</label>
+        <br>
+        <input type="number" id="quantity" name="quantity" required>
+        <br>
+         <input type="datetime-local" id="deliveryTime" required><br>
+        <select id="paymentMethod" required>
+             <option value=""> Select Payment Method</option>
+             <option value="cash">Cash</option>
+             <option value="transfer">Transfer</option>
+        </select><br>
+        <input type="number" id="amountPaid" placeholder="Amount Paid" min="0" step="0.01" required><br>
+        <input type="number" id="amountOwed" placeholder="Amount Owed" min="0" step="0.01" required><br>
+        <button class="submit" id="nextBtn" type="button">Next</button>
+    </form>
+
+    </div>
+   
+    <!-- Config + Auth module (config must load before auth) -->
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/rev.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('Service Worker registered:', registration);
+            }).catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="VIDA - Customer Records Dashboard">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VIDA">
+    <title>Customer Records Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/images/DIVA.png">
+    <link rel="apple-touch-icon" href="/images/DIVA.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/cs/Dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="lo">
+                <img src="/images/DIVA.png" alt="Logo" class="logo-img">
+            </div>
+            <nav>
+                <a href="/Public/login.html?next=purchase">Purchase</a>
+                <a href="/Public/login.html?next=rev">Receive</a>
+                <a href="/Public/login.html?next=dashboard">Order List</a>
+            </nav>
+        </div>
+    </header>
+
+    <h2>Customer Records Dashboard</h2>
+
+    <!-- Top Layout -->
+    <div class="dashboard">
+        <!-- Left Column (Monthly records) -->
+        <div class="card" id="monthly-card">
+            <h3>Each Month</h3>
+            <div class="chart-slide">
+                <canvas id="monthChart" height="100"></canvas>
+            </div>
+            <div class="slide-controls">
+                <button id="prevMonthBtn">Previous</button>
+                <span id="monthLabel">January</span>
+                <button id="nextMonthBtn">Next</button>
+            </div>
+        </div>
+
+        <!-- Middle Column (Year Pie Chart) -->
+        <div class="card" id="year-card">
+            <h3>Year Overview</h3>
+            <div class="chart-slide">
+                <canvas id="yearPie" height="100"></canvas>
+            </div>
+            <div class="slide-controls">
+                <button id="prevYearBtn">Previous</button>
+                <span id="yearLabel">2025</span>
+                <button id="nextYearBtn">Next</button>
+            </div>
+        </div>
+
+        <!-- Right Column (Bar Chart) -->
+        <div class="card" id="bar-card">
+            <h3>Bar Chart</h3>
+            <div class="chart-slide">
+                <canvas id="barChart" height="100"></canvas>
+            </div>
+            <div class="slide-controls">
+                <button id="prevBarBtn">Previous</button>
+                <span id="barLabel">January</span>
+                <button id="nextBarBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Table -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search Customer Name..." id="searchInput">
+        <button id="exportCsvBtn" style="margin-left:12px;padding:0.5em 1em;border-radius:4px;border:none;background:#27ae60;color:#fff;cursor:pointer;">Export CSV</button>
+        <button id="printBtn" style="margin-left:8px;padding:0.5em 1em;border-radius:4px;border:none;background:#2980b9;color:#fff;cursor:pointer;">Print Orders</button>
+        <button id="refreshBtn" style="margin-left:8px;padding:0.5em 1em;border-radius:4px;border:none;background:#8e44ad;color:#fff;cursor:pointer;">Refresh</button>
+    </div>
+
+    <div class="container">
+        <h1>Customer Order List</h1>
+        <div id="overallTotals" style="margin-bottom: 16px;"></div>
+        <div id="dailySummaries" style="margin-bottom: 16px;"></div>
+        <!-- duplicate search input removed (top search bar used) -->
+        <table id="entriesTable">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>ID Number</th>
+                    <th>Phone Number</th>
+                    <th>Date</th>
+                    <th>Amount Paid</th>
+                    <th>Amount Owed</th>
+                    <th>Number of Bags</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Config + Auth module (config must load before auth) -->
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/Dashboard.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('Service Worker registered:', registration);
+            }).catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+    </script>
+</body>
+</html>

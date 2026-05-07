@@ -1,0 +1,197 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form label {
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="tel"],
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark text color for readability */
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+    color: #2069b3; /* Blue color for the heading */
+    margin-bottom: 20px;
+}
+
+form .submit {
+    width: 100%;
+    margin-top: 8px;
+    font-size: 1em;
+    padding: 12px 0;
+    background-color: #2069b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+table{
+    width: 100%;
+    margin: 0 20px 0 20px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+th, td{
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left
+
+}
+
+th{
+    background-color: #2069b3; /* Blue header */
+    color: white;
+    
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Slightly darker gray on hover */
+}
+
+
+
+
+#searchInput {
+    width: 60%;
+    margin: 16px 0 0;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #2069b3; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(32, 105, 179, 0.5); /* Glow effect on focus */
+}
+
+
+.status-btn {
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.status-done {
+    background-color: green;
+}
+.status-not-done {
+    background-color: red;
+}
+
+
+/* ...your existing styles... */
+
+#customModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.3);
+    align-items: center;
+    justify-content: center;
+}
+#customModal.active {
+    display: flex;
+}
+.modal-content {
+    background: #fff;
+    padding: 24px 32px;
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 90vw;
+}
+.modal-buttons {
+    margin-top: 16px;
+}
+#modalYes, #modalNo {
+    padding: 8px 24px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#modalYes { background: #007bff; color: #fff; }
+#modalNo { background: #ccc; color: #333; }
+
+
+/* ...existing code... */
+
+@media (max-width: 600px) {
+    div {
+        padding: 4px;
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 1.1em;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+    thead tr {
+        display: none;
+    }
+     tr {
+        margin-bottom: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+        border-radius: 6px;
+    }
+    td {
+        position: relative;
+        padding-left: 50%;
+        min-height: 32px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        background: inherit;
+    }
+       td:before {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        width: 48%;
+        white-space: nowrap;
+        font-weight: bold;
+        color: #2069b3;
+        content: attr(data-label);
+    }
+}

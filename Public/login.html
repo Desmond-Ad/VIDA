@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="VIDA Water Distribution Management System - Login">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VIDA">
+    <title>VIDA - Login</title>
+    <link rel="icon" type="image/x-icon" href="/images/DIVA.png">
+    <link rel="apple-touch-icon" href="/images/DIVA.png">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-section img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .logo-section h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fadbd8;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            color: #27ae60;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #d5f4e6;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        .spinner.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        #installAppBtn {
+            display: none;
+            width: 100%;
+            padding: 12px;
+            margin-top: 16px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #installAppBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        #installAppBtn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <img src="/images/DIVA.png" alt="VIDA Logo">
+            <h1>VIDA</h1>
+            <p>Water Distribution Management System</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span id="btnText">Login</span>
+                <div class="spinner" id="spinner"></div>
+            </button>
+
+            <button type="button" id="installAppBtn" style="display: none;">
+                📱 Install VIDA App
+            </button>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+        </form>
+
+        <div class="register-link">
+            Don't have an account? <a href="#" id="registerLink">Register here</a>
+        </div>
+        <div id="loginDestination" style="margin-top:8px;color:#666;font-size:13px;text-align:center;"></div>
+    </div>
+    <!-- Dev-only: show default test credentials when served locally -->
+    <div id="devCredentials" style="max-width:420px;margin:12px auto 32px;padding:12px;border-radius:8px;background:#f7f9fb;border:1px solid #e6eef7;color:#123;display:none;">
+        <strong>Test accounts (development only)</strong>
+        <div style="margin-top:8px;font-size:13px;line-height:1.5;">
+            <div><strong>Admin:</strong> Admin / adminpass</div>
+            <div><strong>Purchase:</strong> PurchaseUser / purchasepass</div>
+            <div><strong>Receive:</strong> RevUser / revpass</div>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:#555;">You can override these with environment variables: <code>ADMIN_USER</code>, <code>ADMIN_PASS</code>, <code>PURCHASE_USER</code>, <code>PURCHASE_PASS</code>, <code>REV_USER</code>, <code>REV_PASS</code>.</div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        // Determine where the user came from (optional 'next' param)
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextParam = (urlParams.get('next') || '').toLowerCase();
+
+        // Show destination hint to user
+        (function showDestinationHint(){
+            const destEl = document.getElementById('loginDestination');
+            if (!destEl) return;
+            if (!nextParam) { destEl.textContent = 'Logging in will take you to your default page.'; return; }
+            if (nextParam === 'dashboard') destEl.textContent = 'Login as Admin to access the Dashboard (view orders).';
+            else if (nextParam === 'purchase') destEl.textContent = 'Login to continue to the Purchase page.';
+            else if (nextParam === 'rev') destEl.textContent = 'Login to continue to the Receive page.';
+            else destEl.textContent = 'Login to continue.';
+        })();
+
+        // Reveal dev credentials when running on localhost for convenience
+        (function showDevCredentials(){
+            try {
+                const host = window.location.hostname;
+                if (host === 'localhost' || host === '127.0.0.1') {
+                    const el = document.getElementById('devCredentials');
+                    if (el) el.style.display = 'block';
+                }
+            } catch (e) { /* ignore */ }
+        })();
+
+        function getDestinationForNext(next, user) {
+            const base = (window.API_BASE || '');
+            // Admin can access everything
+            const role = user && user.role;
+            if (next === 'dashboard') {
+                if (role === 'admin') return base + '/Dashboard.html';
+                return null; // only admin allowed
+            }
+            if (next === 'purchase') {
+                if (role === 'purchase' || role === 'admin') return base + '/Purchase.html';
+                return null;
+            }
+            if (next === 'rev' || next === 'receive') {
+                if (role === 'rev' || role === 'admin') return base + '/rev.html';
+                return null;
+            }
+            // default: admin -> dashboard, staff -> purchase
+            if (role === 'admin') return base + '/Dashboard.html';
+            if (role === 'purchase') return base + '/Purchase.html';
+            if (role === 'rev') return base + '/rev.html';
+            return base + '/Purchase.html';
+        }
+
+        function resetLoginUI() {
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline';
+            spinner.classList.remove('show');
+        }
+
+        async function parseJsonSafely(response) {
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                try {
+                    return await response.json();
+                } catch (err) {
+                    return null;
+                }
+            }
+
+            // fallback: try to read text and parse
+            try {
+                const txt = await response.text();
+                if (!txt) return null;
+                return JSON.parse(txt);
+            } catch (err) {
+                return null;
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+
+            // Clear messages
+            errorMsg.classList.remove('show');
+            errorMsg.textContent = '';
+            successMsg.classList.remove('show');
+
+            // Show spinner
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.classList.add('show');
+
+            try {
+                // Try a few candidate endpoints to handle dev setups where API_BASE may be misdetected
+                async function tryLoginFetch(payload) {
+                    const candidates = [];
+                    if (window.API_BASE) candidates.push(window.API_BASE + '/login');
+                    candidates.push('http://localhost:5000/login');
+                    candidates.push((window.location.origin || '') + '/login');
+
+                    let lastErr = null;
+                    for (const url of candidates) {
+                        try {
+                            console.debug('Attempting login POST to', url);
+                            const resp = await fetch(url, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                credentials: 'include',
+                                body: payload
+                            });
+                            return resp;
+                        } catch (err) {
+                            console.warn('Login fetch failed for', url, err);
+                            lastErr = err;
+                            // try next candidate
+                        }
+                    }
+                    throw lastErr || new Error('Network error while attempting login');
+                }
+
+                const response = await tryLoginFetch(JSON.stringify({ username, password }));
+
+                const data = await parseJsonSafely(response);
+
+                if (!response.ok) {
+                    const errMsg = (data && (data.error || data.message)) || `${response.status} ${response.statusText}`;
+                    throw new Error(errMsg);
+                }
+
+                if (!data || !data.token) {
+                    throw new Error('Invalid server response: missing token');
+                }
+
+                // Save token to localStorage
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user || {}));
+
+                // Show success message
+                successMsg.textContent = `Welcome, ${data.user && data.user.username ? data.user.username : 'user'}!`;
+                successMsg.classList.add('show');
+
+                // Redirect after short delay based on origin (`next` param) and role
+                setTimeout(() => {
+                    const dest = getDestinationForNext(nextParam, data.user);
+                    if (!dest) {
+                        const errorMsgEl = document.getElementById('errorMessage');
+                        if (nextParam === 'dashboard') {
+                            errorMsgEl.textContent = 'Access denied: admin credentials required for Dashboard.';
+                        } else if (nextParam === 'purchase') {
+                            errorMsgEl.textContent = 'Access denied: purchase-role credentials required for Purchase page. Use a Purchase account or ask an admin to assign this role.';
+                        } else if (nextParam === 'rev') {
+                            errorMsgEl.textContent = 'Access denied: receive-role credentials required for Receive page. Use a Rev account or ask an admin to assign this role.';
+                        } else {
+                            errorMsgEl.textContent = 'Access denied: insufficient privileges for the requested page.';
+                        }
+                        errorMsgEl.classList.add('show');
+                        resetLoginUI();
+                        return;
+                    }
+                    window.location.href = dest;
+                }, 800);
+            } catch (err) {
+                console.error('Login error:', err);
+                const errorMsg = document.getElementById('errorMessage');
+                errorMsg.textContent = err.message || 'Login failed. Please try again.';
+                errorMsg.classList.add('show');
+                resetLoginUI();
+            }
+        });
+
+        // Register link (toggle to registration form - simple implementation)
+        document.getElementById('registerLink').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            // Prevent users from self-registering as admin
+            if (nextParam === 'dashboard') {
+                alert('Registration for admin Dashboard is not allowed via this form. Please contact an administrator.');
+                return;
+            }
+
+            const username = prompt('Enter username:');
+            if (!username) return;
+            const password = prompt('Enter password:');
+            if (!password) return;
+
+            // assign role based on where the user came from (next param)
+            let role = 'staff';
+            if (nextParam === 'purchase') role = 'purchase';
+            if (nextParam === 'rev') role = 'rev';
+
+            try {
+                const res = await fetch((window.API_BASE || '') + '/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ username, password, role })
+                });
+
+                const data = await parseJsonSafely(res);
+
+                if (!res.ok) {
+                    const msg = (data && (data.error || data.message)) || `${res.status} ${res.statusText}`;
+                    alert('Registration failed: ' + msg);
+                    return;
+                }
+
+                alert('Registration successful! You can now login.');
+            } catch (err) {
+                alert('Error: ' + (err.message || err));
+            }
+        });
+
+        // Register Service Worker for PWA
+        let deferredPrompt = null;
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('Service Worker registered:', registration);
+            }).catch(err => {
+                console.log('Service Worker registration failed:', err);
+            });
+        }
+
+        // Capture install prompt for manual trigger
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt event fired');
+            e.preventDefault();
+            deferredPrompt = e;
+            // Show install button if it exists
+            const installBtn = document.getElementById('installAppBtn');
+            if (installBtn) {
+                installBtn.style.display = 'block';
+            }
+        });
+
+        // Handle manual install button click
+        const installBtn = document.getElementById('installAppBtn');
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User response to the install prompt: ${outcome}`);
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                }
+            });
+        }
+
+        // Log app installation
+        window.addEventListener('appinstalled', () => {
+            console.log('VIDA PWA installed successfully!');
+        });
+    </script>
+</body>
+</html>

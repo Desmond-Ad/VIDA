@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDA - Setup</title>
+    <link rel="icon" type="image/x-icon" href="/images/DIVA.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .setup-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d5f4e6;
+            color: #27ae60;
+            display: block;
+        }
+
+        .message.error {
+            background: #fadbd8;
+            color: #e74c3c;
+            display: block;
+        }
+
+        .info {
+            background: #d6eaf8;
+            color: #2874a6;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <h1>🔧 Account Setup</h1>
+
+        <div class="info">
+            This page allows you to create an admin or staff account for the first time. After setup, use the login page.
+        </div>
+
+        <form id="setupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Account Type:</label>
+                <select id="role" name="role" required>
+                    <option value="">-- Select --</option>
+                    <option value="admin">Admin (can access Dashboard)</option>
+                    <option value="staff">Staff (can access Purchase &amp; Receive)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="setupCode">Setup Code (ask admin):</label>
+                <input type="password" id="setupCode" name="setupCode" placeholder="Enter setup code" required>
+            </div>
+
+            <button type="submit">Create Account</button>
+
+            <div class="message" id="message"></div>
+        </form>
+
+        <div class="back-link">
+            <a href="/Public/login.html">← Back to Login</a>
+        </div>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script>
+        document.getElementById('setupForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const setupCode = document.getElementById('setupCode').value;
+            const msgEl = document.getElementById('message');
+
+            msgEl.classList.remove('success', 'error');
+            msgEl.textContent = '';
+
+            try {
+                const base = (window.API_BASE || '');
+                const res = await fetch(base + '/setup-admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ username, password, role, setupCode })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || `Error: ${res.status}`);
+                }
+
+                msgEl.classList.add('success');
+                msgEl.textContent = `✅ Account created! Welcome, ${username}. Redirecting to login...`;
+                setTimeout(() => {
+                    window.location.href = (window.API_BASE || '') + '/Public/login.html';
+                }, 2000);
+            } catch (err) {
+                msgEl.classList.add('error');
+                msgEl.textContent = `❌ ${err.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

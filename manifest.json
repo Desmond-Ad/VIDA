@@ -1,0 +1,86 @@
+{
+  "name": "VIDA - Water Distribution Management System",
+  "short_name": "VIDA",
+  "description": "Water Distribution Management System for Purchase, Receive, and Dashboard operations",
+  "start_url": "/Public/login.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/DIVA.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/DIVA.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/DIVA.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Purchase Order",
+      "short_name": "Purchase",
+      "description": "Create new purchase orders",
+      "url": "/Public/Purchase.html",
+      "icons": [
+        {
+          "src": "/images/DIVA.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Receive Order",
+      "short_name": "Receive",
+      "description": "Receive and process orders",
+      "url": "/Public/rev.html",
+      "icons": [
+        {
+          "src": "/images/DIVA.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View order records and analytics",
+      "url": "/Public/Dashboard.html",
+      "icons": [
+        {
+          "src": "/images/DIVA.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/DIVA.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/DIVA.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+*{
+    box-sizing: border-box;
+}
+
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-items: center;
+    justify-content: center;
+    background-color: rgb(115, 177, 239);
+
+}
+
+.container {
+    height: 400px;
+    min-height:400px;
+    width: 400px;
+    min-width: 400px;
+    align-items: center;
+    justify-items: center;
+    padding-top: 60px;
+}
+
+.container h1{
+    text-align: center;
+    color: white;
+    font-size: 46px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .container h1 {
+        font-size: 36px; /* Adjusted for smaller screens */
+    }
+    
+    .container {
+        width: 70%; /* Make the container responsive */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .logo {
+        width: 40px; /* Make the logo responsive */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .logo img {
+        width: 100%; /* Make the logo image responsive */
+        height: auto; /* Allow height to adjust based on content */
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+
+
+    .container .description {
+        font-size: 24px; /* Adjusted for smaller screens */
+    }
+
+    .container p {
+        font-size: 20px; /* Adjusted for smaller screens */
+    }
+}
+
+.logo{
+    width: 400px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    animation: rotateLogo 0.7s linear 1; /* Rotate on load */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+@keyframes rotateLogo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.logo img:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Slightly larger zoom */
+}
+
+.container .description{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+}
+
+
+@media (max-width: 400px){
+    .container h1 {
+        font-size: 28px; /* Adjusted for smaller screens */
+    }
+    
+    .container {
+        width: 90%; /* Make the container responsive */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .logo {
+        width: 300px; /* Make the logo responsive */
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    .logo img {
+        width: 100%; /* Make the logo image responsive */
+       
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .container p {
+        font-size: 40px; /* Adjusted for smaller screens */
+    }
+
+    .container .description{
+        font-size: 20px; /* Adjusted for smaller screens */
+    }
+}
