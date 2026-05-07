@@ -28,37 +28,8 @@ function getLocalIPv4Addresses() {
 }
 
 const localIPs = getLocalIPv4Addresses();
-const allowedOrigins = [
-  'http://localhost:5000',
-  'http://127.0.0.1:5000',
-  'http://localhost:5501',
-  'http://127.0.0.1:5501',
-  'http://localhost:3000',  // common dev port
-  'http://127.0.0.1:3000'
-];
-
-// add LAN IPs to allowlist (e.g. http://192.168.x.x:5000)
-localIPs.forEach(ip => {
-  allowedOrigins.push(`http://${ip}:5000`);
-});
-
 app.use(cors({
-  origin: (origin, callback) => {
-    // allow requests with no origin (like direct navigation or curl)
-    if (!origin) return callback(null, true);
-    // allow if origin is in allowlist
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    // in dev, log and allow local/LAN ips
-    if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.match(/\d+\.\d+\.\d+\.\d+/))) {
-      console.log(`✅ CORS approved (dev): ${origin}`);
-      return callback(null, true);
-    }
-    // deny otherwise
-    console.log(`❌ CORS denied: ${origin}`);
-    return callback(new Error('Not allowed by CORS'));
-  },
+  origin: true,
   credentials: true
 }));
 
