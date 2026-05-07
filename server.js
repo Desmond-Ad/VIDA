@@ -82,12 +82,20 @@ if (!JWT_SECRET) {
 }
 
 // MongoDB Connection
-mongoose.connect(uri)
+mongoose.connect(uri, {
+  serverSelectionTimeoutMS: 10000,
+  socketTimeoutMS: 45000
+})
   .then(() => {
     console.log("✅ MongoDB connected successfully!");
     // Default users removed — use /Public/setup.html to create accounts
+    startServer();
   })
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch(err => {
+    console.error("❌ MongoDB connection error:", err);
+    console.error('❌ Server will not start until MongoDB is available.');
+    process.exit(1);
+  });
 
 // ===== SCHEMAS =====
 
@@ -476,28 +484,17 @@ app.get("/", (req, res) => {
 
 const HOST = '0.0.0.0';
 
-function getLocalIPv4Addresses() {
-  const interfaces = os.networkInterfaces();
-  const addresses = [];
-  for (const name of Object.keys(interfaces)) {
-    for (const iface of interfaces[name]) {
-      if (iface.family === 'IPv4' && !iface.internal) {
-        addresses.push(iface.address);
-      }
+function startServer() {
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    const localIPs = getLocalIPv4Addresses();
+    if (localIPs.length) {
+      localIPs.forEach(ip => console.log(`🔗 Accessible on: http://${ip}:${PORT}`));
+    } else {
+      console.log('⚠️ No non-internal IPv4 addresses detected. You can still access via localhost.');
     }
-  }
-  return addresses;
+    console.log(`📝 To create admin user, POST to http://localhost:${PORT}/register`);
+    console.log(`📝 To login, POST to http://localhost:${PORT}/login`);
+  });
 }
-
-app.listen(PORT, HOST, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  const localIPs = getLocalIPv4Addresses();
-  if (localIPs.length) {
-    localIPs.forEach(ip => console.log(`🔗 Accessible on: http://${ip}:${PORT}`));
-  } else {
-    console.log('⚠️ No non-internal IPv4 addresses detected. You can still access via localhost.');
-  }
-  console.log(`📝 To create admin user, POST to http://localhost:${PORT}/register`);
-  console.log(`📝 To login, POST to http://localhost:${PORT}/login`);
-});
 // end of file
