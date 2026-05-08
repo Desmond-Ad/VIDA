@@ -10,6 +10,7 @@
   ],
   "routes": [
     { "src": "/", "dest": "/Public/index.html" },
+    { "src": "^/(.*\\.html)$", "dest": "/Public/$1" },
     { "src": "/Public/(.*)", "dest": "/Public/$1" }
   ]
 }
