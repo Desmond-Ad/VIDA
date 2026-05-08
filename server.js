@@ -67,7 +67,7 @@ app.use('/images', express.static(path.join(__dirname, "images")));
 // Environment variables
 let uri = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET;
+let JWT_SECRET = process.env.JWT_SECRET;
 
 if (!uri) {
   console.warn("⚠️ Warning: MONGODB_URI environment variable not set. Falling back to local MongoDB at mongodb://localhost:27017/vida");
@@ -78,7 +78,8 @@ if (!uri) {
 if (!JWT_SECRET) {
   console.warn("⚠️ Warning: JWT_SECRET environment variable not set. Using development fallback secret — change this in production.");
   // fallback secret for local development only
-  process.env.JWT_SECRET = 'dev_jwt_secret_change_me';
+  JWT_SECRET = 'dev_jwt_secret_change_me';
+  process.env.JWT_SECRET = JWT_SECRET;
 }
 
 // MongoDB Connection
