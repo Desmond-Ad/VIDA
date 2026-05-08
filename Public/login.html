@@ -358,7 +358,7 @@
                 async function tryLoginFetch(payload) {
                     const candidates = [];
                     if (window.API_BASE) candidates.push(window.API_BASE + '/login');
-                    candidates.push('http://localhost:5000/login');
+                    candidates.push('https://vida-uqtj.onrender.com/login');
                     candidates.push((window.location.origin || '') + '/login');
 
                     let lastErr = null;
