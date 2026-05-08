@@ -281,26 +281,25 @@
         })();
 
         function getDestinationForNext(next, user) {
-            const base = (window.API_BASE || '');
             // Admin can access everything
             const role = user && user.role;
             if (next === 'dashboard') {
-                if (role === 'admin') return base + '/Dashboard.html';
+                if (role === 'admin') return '/Dashboard.html';
                 return null; // only admin allowed
             }
             if (next === 'purchase') {
-                if (role === 'purchase' || role === 'admin') return base + '/Purchase.html';
+                if (role === 'purchase' || role === 'admin') return '/Purchase.html';
                 return null;
             }
             if (next === 'rev' || next === 'receive') {
-                if (role === 'rev' || role === 'admin') return base + '/rev.html';
+                if (role === 'rev' || role === 'admin') return '/rev.html';
                 return null;
             }
             // default: admin -> dashboard, staff -> purchase
-            if (role === 'admin') return base + '/Dashboard.html';
-            if (role === 'purchase') return base + '/Purchase.html';
-            if (role === 'rev') return base + '/rev.html';
-            return base + '/Purchase.html';
+            if (role === 'admin') return '/Dashboard.html';
+            if (role === 'purchase') return '/Purchase.html';
+            if (role === 'rev') return '/rev.html';
+            return '/Purchase.html';
         }
 
         function resetLoginUI() {

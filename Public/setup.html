@@ -189,8 +189,7 @@
             msgEl.textContent = '';
 
             try {
-                const base = (window.API_BASE || '');
-                const res = await fetch(base + '/setup-admin', {
+                const res = await fetch((window.API_BASE || '') + '/setup-admin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -206,7 +205,7 @@
                 msgEl.classList.add('success');
                 msgEl.textContent = `✅ Account created! Welcome, ${username}. Redirecting to login...`;
                 setTimeout(() => {
-                    window.location.href = (window.API_BASE || '') + '/Public/login.html';
+                    window.location.href = '/Public/login.html';
                 }, 2000);
             } catch (err) {
                 msgEl.classList.add('error');

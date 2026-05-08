@@ -188,12 +188,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const entry = entries.find(entry => entry.id === entryId);
             if (entry && !entry.done) {
                 localStorage.setItem('currentEntryId', entryId);
-                const base = (window.API_BASE || '');
 
                 // Force login before entering the Receive page to ensure the correct
                 // user (Rev or Admin) authenticates at the moment of receiving.
                 // This avoids re-using a token from a different session.
-                window.location.href = base + '/Public/login.html?next=rev';
+                window.location.href = '/Public/login.html?next=rev';
                 return;
             }
         }

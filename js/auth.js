@@ -28,8 +28,7 @@ function getCurrentUser() {
 function logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
-    const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
-    window.location.href = base + '/Public/login.html';
+    window.location.href = '/Public/login.html';
 }
 
 /**
@@ -70,8 +69,7 @@ async function fetchWithToken(url, options = {}) {
         // If forbidden (authenticated but insufficient privileges) -> redirect to purchase page
         if (response.status === 403) {
             console.warn('Forbidden: insufficient privileges. Redirecting to Purchase page...');
-            const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
-            window.location.href = base + '/Purchase.html';
+            window.location.href = '/Purchase.html';
             throw new Error('Forbidden');
         }
 
@@ -93,32 +91,30 @@ function checkAuth() {
     
     if (!isLoggedIn()) {
         console.warn('Not logged in. Redirecting to login page...');
-        const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
-        window.location.href = base + '/Public/login.html';
+        window.location.href = '/Public/login.html';
     }
 
     // If user is logged in but not admin, disallow access to Dashboard page
     const user = getCurrentUser();
-    const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
 
     // Dashboard -> admin only
     if (window.location.pathname.includes('Dashboard.html') && (!user || user.role !== 'admin')) {
         console.warn('Non-admin attempting to access Dashboard. Redirecting to login page...');
-        window.location.href = base + '/Public/login.html?next=dashboard';
+        window.location.href = '/Public/login.html?next=dashboard';
         return;
     }
 
     // Purchase page -> purchase role or admin
     if (window.location.pathname.includes('Purchase.html') && (!user || (user.role !== 'purchase' && user.role !== 'admin'))) {
         console.warn('Unauthorized access to Purchase page. Redirecting to login...');
-        window.location.href = base + '/Public/login.html?next=purchase';
+        window.location.href = '/Public/login.html?next=purchase';
         return;
     }
 
     // rev page -> rev role or admin
     if (window.location.pathname.toLowerCase().includes('rev.html') && (!user || (user.role !== 'rev' && user.role !== 'admin'))) {
         console.warn('Unauthorized access to Rev page. Redirecting to login...');
-        window.location.href = base + '/Public/login.html?next=rev';
+        window.location.href = '/Public/login.html?next=rev';
         return;
     }
 }
@@ -156,7 +152,7 @@ function addLogoutButton() {
             // ensure Dashboard link exists
             if (!nav.querySelector('a[href*="Dashboard.html"]')) {
                 const dashLink = document.createElement('a');
-                dashLink.href = (typeof window !== 'undefined' && window.API_BASE ? window.API_BASE : '') + '/Public/Dashboard.html';
+                dashLink.href = '/Public/Dashboard.html';
                 dashLink.textContent = 'Dashboard';
                 dashLink.style.marginLeft = '12px';
                 nav.appendChild(dashLink);

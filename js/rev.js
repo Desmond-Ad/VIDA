@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (currentOrderIndex === -1) {
         console.warn('Entry not found in localStorage for id', entryId);
         alert('Order not found! Redirecting...');
-        const base = (window.API_BASE || '');
-        window.location.href = base + '/Purchase.html';
+        window.location.href = '/Purchase.html';
     }
 
     // Populate form with the selected order's data
@@ -72,20 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     .then(data => {
                         console.log("✅ Order marked as done in MongoDB:", data);
-                        const base = (window.API_BASE || '');
-                        window.location.href = base + '/Thanks.html';
+                        window.location.href = '/Thanks.html';
                     })
                     .catch(err => {
                         console.error("❌ Error updating MongoDB:", err);
                         alert("Updated locally but failed to update server. Check console.");
-                        const base = (window.API_BASE || '');
-                        window.location.href = base + '/Thanks.html';
+                        window.location.href = '/Thanks.html';
                     });
             } else {
                 console.warn("⚠️ No backend ID found for order, skipping server update");
                 // No backend ID, just redirect
-                const base = (window.API_BASE || '');
-                window.location.href = base + '/Thanks.html';
+                window.location.href = '/Thanks.html';
             }
         } else {
             alert('No pending order to update!');
