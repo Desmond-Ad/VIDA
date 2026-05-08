@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "Public/**/*", "use": "@vercel/static" },
+    { "src": "js/**/*", "use": "@vercel/static" },
+    { "src": "cs/**/*", "use": "@vercel/static" },
+    { "src": "images/**/*", "use": "@vercel/static" },
+    { "src": "manifest.json", "use": "@vercel/static" },
+    { "src": "sw.js", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/Public/index.html" },
+    { "src": "/Public/(.*)", "dest": "/Public/$1" }
+  ]
+}
