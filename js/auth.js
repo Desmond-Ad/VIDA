@@ -53,6 +53,8 @@ async function fetchWithToken(url, options = {}) {
         // If API_BASE is set (from js/config.js), prefix relative URLs
         const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
         const finalUrl = (url && url.startsWith('/')) ? (base + url) : url;
+        
+        console.log('🔧 fetchWithToken: base =', base, 'url =', url, 'finalUrl =', finalUrl);
 
         const response = await fetch(finalUrl, {
             ...options,

@@ -8,10 +8,13 @@
     try {
         // Use Render backend URL for all frontend API calls
         API_BASE = 'https://vida-uqtj.onrender.com';
+        console.log('🔧 config.js: Setting API_BASE to:', API_BASE);
     } catch (e) {
         API_BASE = '';
+        console.log('🔧 config.js: Error setting API_BASE, using default:', API_BASE);
     }
 
     // expose globally
     window.API_BASE = API_BASE;
+    console.log('🔧 config.js: window.API_BASE set to:', window.API_BASE);
 })();
