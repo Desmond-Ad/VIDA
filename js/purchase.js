@@ -133,9 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(orderData)
         })
-            .then(res => {
+            .then(async res => {
                 if (!res.ok) {
-                    throw new Error('Network response was not ok');
+                    const errorText = await res.text().catch(() => 'Unable to read response body');
+                    console.error('❌ Order POST failed:', res.status, res.statusText, errorText);
+                    throw new Error(`Network response was not ok (${res.status})`);
                 }
                 return res.json();
             })
