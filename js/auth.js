@@ -50,11 +50,13 @@ async function fetchWithToken(url, options = {}) {
     };
 
     try {
-        // If API_BASE is set (from js/config.js), prefix relative URLs
+        // If API_BASE is set (from js/config.js), prefix relative URLs.
+        // If API_BASE is missing, fallback to the Render backend to avoid calling the frontend host.
         const base = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
-        const finalUrl = (url && url.startsWith('/')) ? (base + url) : url;
+        const fallbackBase = 'https://vida-uqtj.onrender.com';
+        const finalUrl = (url && url.startsWith('/')) ? ((base || fallbackBase) + url) : url;
         
-        console.log('🔧 fetchWithToken: base =', base, 'url =', url, 'finalUrl =', finalUrl);
+        console.log('🔧 fetchWithToken: base =', base, 'fallbackBase =', fallbackBase, 'url =', url, 'finalUrl =', finalUrl);
 
         const response = await fetch(finalUrl, {
             ...options,
