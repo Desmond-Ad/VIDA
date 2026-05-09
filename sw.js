@@ -1,5 +1,5 @@
 // Service Worker for VIDA PWA
-const CACHE_NAME = 'vida-cache-v1';
+const CACHE_NAME = 'vida-cache-v2';
 const urlsToCache = [
   '/',
   '/Public/login.html',
