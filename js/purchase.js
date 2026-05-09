@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // ✅ ALWAYS save to MongoDB (for both new and existing customers)
-        fetchWithToken("/orders", {
+        fetchWithToken("https://vida-uqtj.onrender.com/orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

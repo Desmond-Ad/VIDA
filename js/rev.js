@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Update MongoDB if the order has a backend ID
             if (currentOrder.backendId) {
                 console.log("🔄 Sending PATCH request to update order:", currentOrder.backendId);
-                fetchWithToken(`/orders/${currentOrder.backendId}`, {
+                fetchWithToken(`https://vida-uqtj.onrender.com/orders/${currentOrder.backendId}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"

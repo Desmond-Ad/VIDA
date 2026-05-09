@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // --- Fetch orders from backend and compute chart data ---
         async function fetchOrdersFromServer() {
             try {
-                const res = await fetchWithToken('/orders');
+                const res = await fetchWithToken('https://vida-uqtj.onrender.com/orders');
                 if (!res || !res.ok) throw new Error('Network response was not ok');
                 const serverOrders = await res.json();
                 // Normalize orders to local entry shape
